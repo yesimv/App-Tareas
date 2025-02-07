@@ -1,0 +1,22 @@
+.card{
+    width: 500px !important;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.secc-iconos{
+    height: 175px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+.descripcion{
+display: block;
+}
+.descripcion-edit:active{
+    display: block;
+    }
+.descripcion-edit{
+    display: none;
+}
