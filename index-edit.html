@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Bloques</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container mt-4">
+    <button class="btn btn-primary mb-3" onclick="crearNuevoBloque()">Agregar Bloque</button>
+    <div id="contenedor-bloques"></div>
+</div>
+
+<script>
+let contador = 1; // Contador para generar nombres únicos
+
+function crearNuevoBloque() {
+    // ID único para el bloque
+    let bloqueId = `bloque_${contador}`;
+    let radioName = `exampleRadios_${contador}`;
+
+    // Plantilla del nuevo bloque con identificadores dinámicos
+    let nuevoBloque = document.createElement("div");
+    nuevoBloque.classList.add("card", "mb-3");
+    nuevoBloque.style.width = "18rem";
+    nuevoBloque.setAttribute("id", bloqueId);
+
+    nuevoBloque.innerHTML = `
+        <div class="card-body">
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="${radioName}" id="${radioName}_1" value="Pendiente" checked>
+                <label class="form-check-label" for="${radioName}_1">Pendiente</label>
+            </div>
+            
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="${radioName}" id="${radioName}_2" value="En proceso">
+                <label class="form-check-label" for="${radioName}_2">En proceso</label>
+            </div>
+            
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="${radioName}" id="${radioName}_3" value="Completada">
+                <label class="form-check-label" for="${radioName}_3">Completada</label>
+            </div>
+        </div>
+        
+        <div class="card-body descripcion">
+            <h5 class="card-title">Nuevo Bloque</h5>
+            <p class="card-text">Descripción generada.</p>
+        </div>
+
+        <div class="form-group descripcion-edit">
+            <input class="form-control titulo-input" type="text" placeholder="Título">
+            <textarea class="form-control desc-input" placeholder="Descripción" rows="3"></textarea>
+        </div>
+
+        <div class="card-body">
+            <button class="btn btn-success btn-sm" onclick="guardarBloque('${bloqueId}')">Guardar</button>
+            <button class="btn btn-danger btn-sm" onclick="eliminarBloque('${bloqueId}')">Eliminar</button>
+        </div>
+    `;
+
+    // Agregar el bloque al contenedor
+    document.getElementById("contenedor-bloques").appendChild(nuevoBloque);
+    contador++; // Incrementar para el próximo bloque
+}
+
+function guardarBloque(bloqueId) {
+    let bloque = document.getElementById(bloqueId);
+    let tituloInput = bloque.querySelector(".titulo-input").value;
+    let descInput = bloque.querySelector(".desc-input").value;
+    
+    // Obtener el valor del radio seleccionado
+    let radioSeleccionado = bloque.querySelector(`input[name="exampleRadios_${bloqueId.split('_')[1]}"]:checked`).value;
+
+    // Actualizar el bloque con los valores ingresados
+    bloque.querySelector(".card-title").textContent = tituloInput || "Sin título";
+    bloque.querySelector(".card-text").textContent = descInput || "Sin descripción";
+
+    // Deshabilitar los inputs después de guardar
+    bloque.querySelector(".titulo-input").disabled = true;
+    bloque.querySelector(".desc-input").disabled = true;
+    bloque.querySelectorAll(`input[name="exampleRadios_${bloqueId.split('_')[1]}"]`).forEach(radio => radio.disabled = true);
+}
+
+function eliminarBloque(bloqueId) {
+    document.getElementById(bloqueId).remove();
+}
+</script>
+
+</body>
+</html>

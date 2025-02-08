@@ -16,15 +16,8 @@
     justify-content: space-between;
     align-items: flex-end;
 }
-.descripcion{
-display: none;
-}
-.descripcion-edit:active{
-    display: block;
-    }
-.descripcion-edit{
-    display: block;
-}
+
+
 
 .separador {
     height: 2px;
