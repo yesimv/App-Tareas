@@ -10,51 +10,51 @@
 <body>
   <header>
     <h1>Aplicación de Tareas</h1>
-    <button>Nueva Tarea</button>
+    <button data-bs-toggle="collapse" data-bs-target="#card">Nueva Tarea</button>
     <select name="mostrar" id="mostrar">
       <option value="all">Mostrar todo</option>
       <option value="pendientes">Pendientes</option>
       <option value="proceso">En Proceso</option>
       <option value="completadas">Completadas</option>
     </select>
-  </header>
-  <div class="separador"></div>
-    <div class="card " style="width: 18rem;">
-        <div class="card-body">
+    <div id="card" class="card collapse card-builder" style="width: 18rem;">
+      <div class="card-body">
+      <div class="form-check">
+          <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+          <label class="form-check-label" for="exampleRadios1">
+            Pendiente
+          </label>
+        </div>
+        
         <div class="form-check">
-            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
-            <label class="form-check-label" for="exampleRadios1">
-              Pendiente
-            </label>
-          </div>
-          
-          <div class="form-check">
-            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
-            <label class="form-check-label" for="exampleRadios2">
-              En proceso
-            </label>
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option3" >
-            <label class="form-check-label" for="exampleRadios3">
-            Completada
-            </label>
-          </div>
+          <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+          <label class="form-check-label" for="exampleRadios2">
+            En proceso
+          </label>
         </div>
-        <div class="card-body descripcion">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        </div>
-        <div class="form-group descripcion-edit">
-            <input class="form-control" type="text" placeholder="Titulo">
-            <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="Descripcion" rows="3"></textarea>
-          </div>
-        <div class="card-body secc-iconos">
-
-          <a href="#" onclick="eliminar()"><img src="images/borrar.png" alt="Icono" width="20" height="20" ></a>
-          <a href="#" onclick="editar()"><img src="images/boton-editar.png" alt="Icono" width="17" height="17" ></a>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option3" >
+          <label class="form-check-label" for="exampleRadios3">
+          Completada
+          </label>
         </div>
       </div>
+      <div class="card-body descripcion">
+        <h5 class="card-title">Card title</h5>
+        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+      </div>
+      <div class="form-group descripcion-edit">
+          <input class="form-control" type="text" placeholder="Titulo">
+          <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="Descripcion" rows="3"></textarea>
+        </div>
+      <div class="card-body secc-iconos">
+
+        <a href="#" onclick="eliminar()"><img src="images/borrar.png" alt="Icono" width="20" height="20" ></a>
+        <a href="#" onclick="editar()"><img src="images/boton-editar.png" alt="Icono" width="17" height="17" ></a>
+      </div>
+    </div>
+  </header>
+  <div class="separador"></div>
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>
