@@ -1,10 +1,14 @@
 .card{
     width: 500px !important;
-    margin: 20px 20px;
     display: flex;
     flex-direction: row;
     align-items: center;
 }
+
+.card-builder {
+    margin: 20px auto;
+}
+
 .secc-iconos{
     height: 175px;
     display: flex;
@@ -13,13 +17,13 @@
     align-items: flex-end;
 }
 .descripcion{
-display: block;
+display: none;
 }
 .descripcion-edit:active{
     display: block;
     }
 .descripcion-edit{
-    display: none;
+    display: block;
 }
 
 .separador {
