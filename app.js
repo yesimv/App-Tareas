@@ -1,5 +1,50 @@
 let contador = 1;
 
+document.addEventListener("DOMContentLoaded", function () {
+    const body = document.body;
+    const toggleButton = document.getElementById("toggleDarkMode");
+
+    function applyDarkMode() {
+        body.classList.add("bg-dark", "text-light");
+        toggleButton.classList.replace("btn-dark", "btn-light");
+        toggleButton.innerHTML = "☀️";
+
+        document.querySelectorAll(".card").forEach(card => card.classList.add("bg-secondary"));
+        document.querySelectorAll("button").forEach(btn => btn.classList.add("btn-outline-light"));
+
+        localStorage.setItem("darkMode", "enabled");
+    }
+
+    function removeDarkMode() {
+        body.classList.remove("bg-dark", "text-light");
+        toggleButton.classList.replace("btn-light", "btn-dark");
+        toggleButton.innerHTML = "🌙";
+
+        document.querySelectorAll(".card").forEach(card => card.classList.remove("bg-secondary", "text-light"));
+        document.querySelectorAll("button").forEach(btn => btn.classList.remove("btn-outline-light"));
+
+        localStorage.setItem("darkMode", "disabled");
+    }
+
+    if (localStorage.getItem("darkMode") === "enabled") {
+        applyDarkMode();
+    }
+
+    toggleButton.addEventListener("click", function () {
+        if (body.classList.contains("bg-dark")) {
+            removeDarkMode();
+        } else {
+            applyDarkMode();
+        }
+    });
+
+    // 🔹 Al recargar la página, aplicar modo oscuro a tareas existentes
+    if (localStorage.getItem("darkMode") === "enabled") {
+        document.querySelectorAll(".card").forEach(card => card.classList.add("bg-secondary", "text-light"));
+    }
+});
+
+// 🔹 Función para guardar una nueva tarea
 function guardarTarea() {
     let titulo = document.getElementById("titulo").value.trim();
     let descripcion = document.getElementById("descripcion").value.trim();
@@ -12,9 +57,11 @@ function guardarTarea() {
 
     let bloqueId = `bloque_${contador}`;
     let radioName = `exampleRadios_${contador}`;
+    let isDarkMode = document.body.classList.contains("bg-dark");
 
     let nuevoBloque = document.createElement("div");
     nuevoBloque.classList.add("card", "mb-3");
+    if (isDarkMode) nuevoBloque.classList.add("bg-secondary");
     nuevoBloque.style.width = "18rem";
     nuevoBloque.setAttribute("id", bloqueId);
 
@@ -35,8 +82,8 @@ function guardarTarea() {
         </div>
 
         <div class="card-body">
-            <input class="form-control card-title" type="text" value="${titulo}" disabled>
-            <textarea class="form-control card-text" disabled>${descripcion}</textarea>
+            <input class="form-control titulo-input card-title" type="text" value="${titulo}" disabled>
+            <textarea class="form-control desc-input card-text" disabled>${descripcion}</textarea>
         </div>
 
         <div class="card-body secc-iconos">
@@ -44,7 +91,7 @@ function guardarTarea() {
                 <img src="images/borrar.png" alt="Eliminar" width="20" height="20">
             </a>
             <a href="#" onclick="alternarEdicion('${bloqueId}')" class="boton-editar">
-                <img src="images/disquete.png" alt="Guardar" width="17" height="17">
+                <img src="images/boton-editar.png" alt="Editar" width="17" height="17">
             </a>
         </div>
     `;
@@ -52,19 +99,14 @@ function guardarTarea() {
     document.getElementById("contenedor-bloques").appendChild(nuevoBloque);
     contador++;
 
-    // Cerrar el collapse después de guardar
-    let collapse = new bootstrap.Collapse(document.getElementById("formularioCollapse"), {
-        toggle: true
-    });
+    let collapse = new bootstrap.Collapse(document.getElementById("formularioCollapse"), { toggle: true });
 
-    // Limpiar el formulario
     document.getElementById("titulo").value = "";
     document.getElementById("descripcion").value = "";
     document.querySelector('input[name="estado"][value="pendiente"]').checked = true;
 }
 
-
-
+// 🔹 Función para alternar edición
 function alternarEdicion(bloqueId) {
     let bloque = document.getElementById(bloqueId);
     let tituloInput = bloque.querySelector(".titulo-input");
@@ -73,44 +115,31 @@ function alternarEdicion(bloqueId) {
     let boton = bloque.querySelector(".boton-editar img");
 
     if (tituloInput.disabled) {
-        // Habilitar edición
         tituloInput.disabled = false;
         descInput.disabled = false;
         radios.forEach(radio => radio.disabled = false);
-        boton.src = "images/disquete.png"; // Cambia icono a "Guardar"
+        boton.src = "images/disquete.png";
     } else {
-        // Guardar cambios
         if (tituloInput.value == "") {
-            alert("Can't leave title empty.\nPlease set a title.");
+            alert("No puedes dejar el título vacío.");
             return;
-        }else{
-            let titulo = tituloInput.value.trim() || "Sin título";
-            let descripcion = descInput.value.trim() || "Sin descripción";
-            let radioSeleccionado = bloque.querySelector(`input[type="radio"]:checked`).value;
-    
-            bloque.querySelector(".card-title").textContent = titulo;
-            bloque.querySelector(".card-text").textContent = `${descripcion} (${radioSeleccionado})`;
-    
-            // Deshabilitar inputs
-            tituloInput.disabled = true;
-            descInput.disabled = true;
-            radios.forEach(radio => radio.disabled = true);
-            boton.src = "images/boton-editar.png"; // Cambia icono a "Editar"
         }
-        
+
+        tituloInput.disabled = true;
+        descInput.disabled = true;
+        radios.forEach(radio => radio.disabled = true);
+        boton.src = "images/boton-editar.png";
     }
-    filtrarTareas();
 }
 
+// 🔹 Función para eliminar tarea
 function eliminarBloque(bloqueId) {
-
     document.getElementById(bloqueId).remove();
 }
+
+// 🔹 Filtrar tareas por estado
 function mostrarAll() {
-    let tareas = document.querySelectorAll(".card");
-    tareas.forEach(tarea => {
-        tarea.style.display = "flex";
-    });
+    document.querySelectorAll(".card").forEach(tarea => tarea.style.display = "flex");
 }
 
 function mostrarPendiente() {
@@ -126,8 +155,7 @@ function mostrarCompletado() {
 }
 
 function filtrarPorEstado(estado) {
-    let tareas = document.querySelectorAll(".card");
-    tareas.forEach(tarea => {
+    document.querySelectorAll(".card").forEach(tarea => {
         let estadoSeleccionado = tarea.querySelector(`input[type="radio"]:checked`).value;
         tarea.style.display = (estadoSeleccionado === estado) ? "flex" : "none";
     });

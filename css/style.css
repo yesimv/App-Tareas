@@ -28,8 +28,8 @@
 
 .separador {
     height: 2px;
-    background-color: blue;
-    border-color: blue;
+    background-color: gray;
+    border-color: gray;
     margin-top: 20px;
     margin-bottom: 20px;
 }
@@ -53,3 +53,25 @@ header {
         grid-template-columns: auto;
     }
   }
+  .mode-toggle {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+.card {
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+button {
+    transition: background 0.3s ease, color 0.3s ease, border 0.3s ease;
+}
