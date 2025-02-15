@@ -3,6 +3,7 @@
     display: flex;
     flex-direction: row;
     align-items: center;
+    margin: 5px;
 }
 
 .card-builder {
@@ -17,7 +18,13 @@
     align-items: flex-end;
 }
 
-
+.plantilla{
+    margin: auto;
+    justify-content: space-between;
+}
+.title-input{
+    margin-bottom: 10px;
+}
 
 .separador {
     height: 2px;
@@ -30,3 +37,19 @@
 header {
     text-align: center;
 }
+
+.btn-new{
+    margin-bottom: 15px;
+}
+#contenedor-bloques{
+    padding-top: 15px;
+    display: grid;
+    grid-template-columns: auto auto;
+    
+    justify-content: center;
+}
+@media screen and (max-width: 1036px) {
+    #contenedor-bloques{
+        grid-template-columns: auto;
+    }
+  }
