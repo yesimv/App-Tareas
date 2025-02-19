@@ -38,6 +38,16 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
+    for (let i = 0 ; i < localStorage.length + 1 ; i++) {
+        let key = localStorage.key(i);
+        let value = localStorage.getItem(key);
+
+        if (key != "darkMode" && key != null) {
+            document.getElementById("contenedor-bloques").insertAdjacentHTML('beforeend', value);
+            contador++;
+        }
+    }
+
     // 🔹 Al recargar la página, aplicar modo oscuro a tareas existentes
     if (localStorage.getItem("darkMode") === "enabled") {
         document.querySelectorAll(".card").forEach(card => card.classList.add("bg-secondary", "text-light"));
@@ -96,10 +106,32 @@ function guardarTarea() {
         </div>
     `;
 
+    if (titulo == "darkMode") {
+        alert("Ese título no se puede utilizar, favor de cambiarlo.");
+        return;
+    }
+
+    if (localStorage.getItem(titulo) != null) {
+        if (!confirm(`Ya hay una tarea con el titulo ${titulo}. Te gustaría reemplazarla?`)){
+            return;
+        }
+        let parser = new DOMParser();
+        let bloqueBorrar = parser.parseFromString(localStorage.getItem(titulo), "text/html");
+        let bloqueIdBorrar = bloqueBorrar.body.firstElementChild.getAttribute("id");
+
+        if (bloqueId != bloqueIdBorrar) {
+            eliminarBloque(bloqueIdBorrar);
+        }
+    }
+    
+    localStorage.setItem(titulo, nuevoBloque.outerHTML);
+
     document.getElementById("contenedor-bloques").appendChild(nuevoBloque);
     contador++;
 
     let collapse = new bootstrap.Collapse(document.getElementById("formularioCollapse"), { toggle: true });
+
+
 
     document.getElementById("titulo").value = "";
     document.getElementById("descripcion").value = "";
@@ -125,6 +157,25 @@ function alternarEdicion(bloqueId) {
             return;
         }
 
+        if (tituloInput.value == "darkMode") {
+            alert("Ese título no se puede utilizar, favor de cambiarlo.");
+            return;
+        }
+
+        if (localStorage.getItem(tituloInput.value) != null && !confirm(`Ya hay una tarea con el titulo ${tituloInput.value}. Te gustaría reemplazarla?`)) {        
+            return;
+        }
+
+        let parser = new DOMParser();
+        let bloqueBorrar = parser.parseFromString(localStorage.getItem(tituloInput.value), "text/html");
+        let bloqueIdBorrar = bloqueBorrar.body.firstElementChild.getAttribute("id");
+
+        if (bloqueId != bloqueIdBorrar) {
+            eliminarBloque(bloqueIdBorrar);
+        }
+
+        localStorage.setItem(tituloInput.value, bloque.outerHTML);
+
         tituloInput.disabled = true;
         descInput.disabled = true;
         radios.forEach(radio => radio.disabled = true);
@@ -134,7 +185,10 @@ function alternarEdicion(bloqueId) {
 
 // 🔹 Función para eliminar tarea
 function eliminarBloque(bloqueId) {
-    document.getElementById(bloqueId).remove();
+    let bloqueABorrar = document.getElementById(bloqueId);
+    let tituloABorrar = bloqueABorrar.getElementsByClassName("titulo-input")[0].value;
+    localStorage.removeItem(tituloABorrar);
+    bloqueABorrar.remove();
 }
 
 // 🔹 Filtrar tareas por estado
