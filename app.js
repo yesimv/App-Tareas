@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // 🔹 Al recargar la página, aplicar modo oscuro a tareas existentes
     if (localStorage.getItem("darkMode") === "enabled") {
-        document.querySelectorAll(".card").forEach(card => card.classList.add("bg-secondary", "text-light"));
+        document.querySelectorAll(".card").forEach(card => card.classList.add("bg-secondary", "text-black"));
     }
 });
 
@@ -70,7 +70,7 @@ function guardarTarea() {
     let isDarkMode = document.body.classList.contains("bg-dark");
 
     let nuevoBloque = document.createElement("div");
-    nuevoBloque.classList.add("card", "mb-3");
+    nuevoBloque.classList.add("card", "mb-3", "fade-in");
     if (isDarkMode) nuevoBloque.classList.add("bg-secondary");
     nuevoBloque.style.width = "18rem";
     nuevoBloque.setAttribute("id", bloqueId);
@@ -133,7 +133,7 @@ function guardarTarea() {
     contador++;
 
     let collapse = new bootstrap.Collapse(document.getElementById("formularioCollapse"), { toggle: true });
-
+    setTimeout(() => nuevoBloque.classList.remove("fade-in"), 500);
 
 
     document.getElementById("titulo").value = "";
@@ -197,8 +197,12 @@ function completarBloque(bloqueId) {
 function eliminarBloque(bloqueId) {
     let bloqueABorrar = document.getElementById(bloqueId);
     let tituloABorrar = bloqueABorrar.getElementsByClassName("titulo-input")[0].value;
-    localStorage.removeItem(tituloABorrar);
-    bloqueABorrar.remove();
+    
+    bloqueABorrar.classList.add("fade-out");
+    setTimeout(() => {
+        localStorage.removeItem(tituloABorrar);
+        bloqueABorrar.remove();
+    }, 500);
 }
 
 // 🔹 Filtrar tareas por estado
