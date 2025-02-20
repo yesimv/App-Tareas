@@ -103,6 +103,9 @@ function guardarTarea() {
             <a href="#" onclick="alternarEdicion('${bloqueId}')" class="boton-editar">
                 <img src="images/boton-editar.png" alt="Editar" width="17" height="17">
             </a>
+            <a href="#" onclick="completarBloque('${bloqueId}')" class="boton-editar">
+                <img src="images/check.png" alt="Editar" width="17" height="17">
+            </a>
         </div>
     `;
 
@@ -181,6 +184,13 @@ function alternarEdicion(bloqueId) {
         radios.forEach(radio => radio.disabled = true);
         boton.src = "images/boton-editar.png";
     }
+}
+
+function completarBloque(bloqueId) {
+    let bloqueCompleto = document.getElementById(bloqueId);
+    let tituloCompleto = bloqueCompleto.getElementsByClassName("titulo-input")[0].value;
+    bloqueCompleto.querySelector('input[class="form-check-input"][value="completado"]').checked = true;
+    localStorage.setItem(tituloCompleto, bloqueCompleto.outerHTML);
 }
 
 // 🔹 Función para eliminar tarea
