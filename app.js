@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", function () {
         toggleButton.classList.replace("btn-dark", "btn-light");
         toggleButton.innerHTML = "☀️";
 
-        document.querySelectorAll(".card").forEach(card => card.classList.add("bg-secondary"));
+       
         document.querySelectorAll("button").forEach(btn => btn.classList.add("btn-outline-light"));
 
         localStorage.setItem("darkMode", "enabled");
@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", function () {
         toggleButton.classList.replace("btn-light", "btn-dark");
         toggleButton.innerHTML = "🌙";
 
-        document.querySelectorAll(".card").forEach(card => card.classList.remove("bg-secondary", "text-light"));
+        
         document.querySelectorAll("button").forEach(btn => btn.classList.remove("btn-outline-light"));
 
         localStorage.setItem("darkMode", "disabled");
@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // 🔹 Al recargar la página, aplicar modo oscuro a tareas existentes
     if (localStorage.getItem("darkMode") === "enabled") {
-        document.querySelectorAll(".card").forEach(card => card.classList.add("bg-secondary", "text-black"));
+        document.querySelectorAll(".card").forEach(card => card.classList.add("text-black"));
     }
 });
 

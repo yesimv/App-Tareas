@@ -8,19 +8,19 @@
     <link href="css/style.css" rel="stylesheet">
     <script src="app.js" ></script>
 </head>
-<body>
+<body >
   <header>
-    <div class="my-3"><h1>Aplicación de Tareas</h1></div>
+    <div class="my-3"><h1 class="titulo">Aplicación de Tareas</h1></div>
     
-    <button class="btn btn-outline-primary btn-new" data-bs-toggle="collapse" data-bs-target="#formularioCollapse">
+    <button class="btn btn-outline-info btn-new" data-bs-toggle="collapse" data-bs-target="#formularioCollapse">
       Crear Tarea
     </button>
     
     <div id="mostrar">
       <button onclick="mostrarAll()" class="btn btn-outline-secondary btn-sm">Mostrar todo</button>
-      <button onclick="mostrarPendiente()" class="btn btn-outline-secondary btn-sm">Pendientes</button>
-      <button onclick="mostrarProceso()" class="btn btn-outline-secondary btn-sm">En proceso</button>
-      <button onclick="mostrarCompletado()" class="btn btn-outline-secondary btn-sm">Completadas</button>
+      <button onclick="mostrarPendiente()" class="btn btn-outline-danger btn-sm">Pendientes</button>
+      <button onclick="mostrarProceso()" class="btn btn-outline-primary btn-sm">En proceso</button>
+      <button onclick="mostrarCompletado()" class="btn btn-outline-success btn-sm">Completadas</button>
     </div>
     
     <div class="collapse mt-3" id="formularioCollapse">
@@ -49,7 +49,7 @@
               <input type="text" id="titulo" class="form-control title-input" placeholder="Título">
               <textarea id="descripcion" class="form-control" placeholder="Descripción"></textarea>
           </div>
-          <button class="btn btn-outline-success" onclick="guardarTarea()">Guardar</button>
+          <button class="btn btn-outline-info" onclick="guardarTarea()">Guardar</button>
       </div>
     </div>
     

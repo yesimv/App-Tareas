@@ -1,11 +1,25 @@
+body{
+    background-color: #eeeef1;
+background: linear-gradient(90deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0) 20%, rgba(0,0,0,0) 80%, rgba(0,0,0,0.1) 100%);
+
+}
+
 .card{
     width: 500px !important;
     display: flex;
     flex-direction: row;
     align-items: center;
     margin: 5px;
+    background: rgba(124, 203, 229, 0.62);
+border-radius: 16px;
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+backdrop-filter: blur(6.5px);
+-webkit-backdrop-filter: blur(6.5px);
+border: 1px solid rgba(124, 203, 229, 0.8);
 }
-
+.titulo{
+    color: #29a9d0;
+}
 .card-builder {
     margin: 20px auto;
 }
@@ -28,8 +42,9 @@
 
 .separador {
     height: 2px;
-    background-color: gray;
-    border-color: gray;
+    background: rgb(218,218,218);
+background: linear-gradient(90deg, rgba(218,218,218,1) 0%, rgba(41,169,208,1) 54%, rgba(218,218,218,1) 100%);
+    border-color: #29a9d0;
     margin-top: 20px;
     margin-bottom: 20px;
 }
